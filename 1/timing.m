@@ -1,11 +1,11 @@
 tdft=[];
 tfft=[];
-N=floor(logspace(1.4,3,500))
+N=floor(logspace(2,3,50))
 
 for i = N
     tempdft=[];
     tempfft=[];
-    for j=1:1
+    for j=1:10
         x = randn(i,1);
 
         tic;
@@ -24,8 +24,8 @@ for i = N
     tdft = [tdft; mean(tempdft)];
     tfft = [tfft; mean(tempfft)];
 end
-n2=0.0000001*N.^2;
-nlogn=10^(-7)*N.*log2(N);
+n2=10^(-7.5)*N.^2;
+nlogn=10^(-7.5)*N.*log2(N);
 figure
 loglog(N,tdft)
 hold on
