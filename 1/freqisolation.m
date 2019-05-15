@@ -1,11 +1,11 @@
-% 5th note in piano extact
+% Full 5th note in piano extract
 % x=audioread('audio/piano_clean.wav');
-% xt=x(12100:12900,1);
+% xt=x(11800:12900,1);
 % plot(xt)
 
-% 6th note in piano extact
-x=audioread('audio/piano_clean.wav');
-xt=x(14900:15700,1);
+% Full 6th note in piano extract
+% x=audioread('audio/piano_clean.wav');
+% xt=x(14800:end,1);
 % plot(xt)
 
 % The consonant 'J' in the word 'John'
@@ -18,10 +18,20 @@ xt=x(14900:15700,1);
 % xt=x(11000:13501,1);
 % plot(xt) 
 
+% Full organ extract
+% [x, Fs]=audioread('audio/organ.wav');
+% xt=x(:,1);
+% plot(xt)
+
+% Truncated organ extract
+[x, Fs]=audioread('audio/organ.wav');
+xt=x(18000:23000,1);
+% plot(xt)
+
 % Compute length of truncated sequence
 N=size(xt,1);
 
-% Plot spectrum
+% Plot spectrum using Hamming window
 xw=xt.* hamming(N);
 Y = fft(xw);
 P2 = abs(Y/N);
