@@ -10,8 +10,10 @@ linsig=a_lin.*signal;
 % plot(linsig)
 
 %periodic modulation
-a_per=1+0.2*sin(0.01*pi*n);
-persig=a_per.*signal;
+a_per1=1+0.2*sin(0.01*pi*n);
+a_per2=1+0.2*sin(0.05*pi*n);
+persig1=a_per1.*signal;
+persig2=a_per2.*signal;
 % plot(persig)
 
 %random AR1 modulation
@@ -20,4 +22,6 @@ for i=1:N-1
     a_ran=[a_ran; a_ran(i)+0.05*randn(1,1)];
 end
 ransig=a_ran'.*signal;
-plot(ransig)
+%plot(ransig)
+
+fvtool(persig2)
