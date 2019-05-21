@@ -1,14 +1,17 @@
 clear all;
 rng(1,'twister');
 
-%create clean signal
-%N=1024, wiener, thres=1000
+% %create clean signal
+% % N=1024, wiener, thres=1000
 % clean=0.5*cos([1:10000]*pi/4)+sin([1:10000]*pi/100);
 
 [x, Fs]=audioread('../audio/piano_clean.wav');
 clean=x(:,1)';
 
 % [x, Fs]=audioread('../audio/armst_37_orig.wav');
+% clean=x(:,1)';
+
+% [x, Fs]=audioread('../audio/f1lcapae.wav');
 % clean=x(:,1)';
 
 %data length
@@ -18,7 +21,7 @@ factor=0.01;
 x_in=clean+factor*randn(1,L);
 
 %estimate psd of noise, method 1
-threshold=20;
+threshold=0.65;
 spec=abs(fft(x_in));
 spec(spec>threshold) = [];
 noisepsd = mean(spec.^2);
@@ -64,7 +67,13 @@ for frame_no=1:N_frames-2
 %     %fill up 258:512 with conjugate of 2:256, in reverse
 %     Y_w(N:-1:N/2+2,frame_no)=conj(Y_w(2:N/2,frame_no));
     
-    %%Wiener filter
+%     %%Wiener filter
+%     a = Y_w(:,frame_no);
+%     a(abs(a).^2 < noisepsd) = 0;
+%     a(abs(a).^2 > noisepsd) = (1 - noisepsd ./ (abs(a(abs(a).^2 > noisepsd)).^2)) .* a(abs(a).^2 > noisepsd);
+%     Y_w(:,frame_no) = a;
+
+    %%Wiener filter (modified exponent)
     a = Y_w(:,frame_no);
     a(abs(a).^2 < noisepsd) = 0;
     a(abs(a).^2 > noisepsd) = (1 - noisepsd ./ (abs(a(abs(a).^2 > noisepsd)).^2)) .* a(abs(a).^2 > noisepsd);
