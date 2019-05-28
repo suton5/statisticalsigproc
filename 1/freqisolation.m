@@ -19,8 +19,8 @@
 % plot(xt) 
 
 % Full organ extract
-[x, Fs]=audioread('audio/organ.wav');
-xt=x(:,1);
+% [x, Fs]=audioread('audio/organ.wav');
+% xt=x(:,1);
 % plot(xt)
 
 % Truncated organ extract
