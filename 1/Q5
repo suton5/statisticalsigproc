@@ -1,0 +1,11 @@
+N=100;
+P=2;
+a1=1;
+a2=2;
+
+signal_AR=[1 1];
+for i=2:N-1
+    signal_AR=[signal_AR a1*signal_AR(i)+a2*signal_AR(i-1)+0.05*randn(1,1)];
+end
+
+plot(signal_AR)
