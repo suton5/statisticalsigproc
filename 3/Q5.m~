@@ -16,7 +16,6 @@ end
 % plot(spec)
 % xlim([-N/2, 3*N/2])
 
-% P=2
 g1=signal_AR(2:N-1)';
 g2=signal_AR(1:N-2)';
 y=signal_AR(3:N)';
@@ -27,11 +26,9 @@ theta_ML = inv(transpose(G)*G)*transpose(G)*y
 
 % Prior distribution parameters
 
-% Setting prior as 0s and being very confident about it basically means 
-% that MAP tries to balance between the clearly non-zero data and the zero
-% prior estimation.
-theta_prior = [0;0];
-prior_var = eye(2);
+% Setting pr
+theta_prior = [0;-0];
+prior_var = [0.01 0 ; 0 0.01];
 
 % Likelihood parameters
 likelihood_var = error_var*inv((transpose(G)*G));
@@ -40,21 +37,14 @@ likelihood_var = error_var*inv((transpose(G)*G));
 [theta_MAP,phi,big_theta,post_var] = post_param(G,error_var,theta_prior,prior_var,y);
 theta_MAP
 
-y_real = G*[a1;a2];
-y_ML = G*theta_ML;
-y_MAP = G*theta_MAP;
-
 figure(1)
-plot(y_real)
+plot(G*[a1;a2])
 hold on
-plot(y_ML)
-plot(y_MAP)
+plot(G*theta_ML)
+plot(G*theta_MAP)
 hold off
-title(["P=2, (ML MSE, MAP MSE)=" num2str(immse(y_real, y_ML)) ...
-    num2str(immse(y_real, y_MAP))])
 legend('Original', 'ML', 'MAP')
 
-% P=10
 g1=signal_AR(10:N-1)';
 g2=signal_AR(9:N-2)';
 g3=signal_AR(8:N-3)';
@@ -73,8 +63,8 @@ G=[g1 g2 g3 g4 g5 g6 g7 g8 g9 g10];
 theta_ML = inv(transpose(G)*G)*transpose(G)*y
 
 % Prior distribution parameters
-theta_prior = zeros(10,1);
-prior_var = eye(10);
+theta_prior = [0;-0];
+prior_var = [0.01 0 ; 0 0.01];
 
 % Likelihood parameters
 likelihood_var = error_var*inv((transpose(G)*G));
@@ -83,16 +73,10 @@ likelihood_var = error_var*inv((transpose(G)*G));
 [theta_MAP,phi,big_theta,post_var] = post_param(G,error_var,theta_prior,prior_var,y);
 theta_MAP
 
-y_real = G*[a1;a2;zeros(8,1)];
-y_ML = G*theta_ML;
-y_MAP = G*theta_MAP;
-
-figure(2)
-plot(y_real)
+figure(1)
+plot(G*[a1;a2])
 hold on
-plot(y_ML)
-plot(y_MAP)
+plot(G*theta_ML)
+plot(G*theta_MAP)
 hold off
-title(["P=10, (ML MSE, MAP MSE)=" num2str(immse(y_real, y_ML)) ...
-    num2str(immse(y_real, y_MAP))])
 legend('Original', 'ML', 'MAP')
