@@ -3,7 +3,7 @@
 % xt=x(:,1)';
 % error_var=4.8e-07;
 
-% Missing file 2 (AR )
+% Missing file 2 (AR 50)
 [x, Fs]=audioread('../audio/missing/grosse_40_percent_missing.wav');
 xt=x(:,1)';
 error_var=3.12e-06;
@@ -83,19 +83,19 @@ for i = 1:L
     x_predict(p-1+i) = alpha*x_f(p-1+i) + (1-alpha)*x_b(p-1+i);
 end
 
-% Bayesian interpolation
-temp = [-flip(theta_MAP') 1];
-A = convmtx(temp, N-P);
-A_i = A(:,p:p+L-1);
-A_neg_i = [A(:,1:p-1), A(:,p+L:end)];
-x_neg_i = [xt(1:p-1), xt(p+L:end)];
-x_LS = -inv(A_i'*A_i)*A_i'*A_neg_i*x_neg_i';
-x_predict2 = [xt(1:p-1), x_LS', xt(p+L:end)];
+% % Bayesian interpolation
+% temp = [-flip(theta_MAP') 1];
+% A = convmtx(temp, N-P);
+% A_i = A(:,p:p+L-1);
+% A_neg_i = [A(:,1:p-1), A(:,p+L:end)];
+% x_neg_i = [xt(1:p-1), xt(p+L:end)];
+% x_LS = -inv(A_i'*A_i)*A_i'*A_neg_i*x_neg_i';
+% x_predict2 = [xt(1:p-1), x_LS', xt(p+L:end)];
 
 plot(xt)
 hold on
 % plot(x_f)
-plot(x_predict2)
-% plot(x_predict)
+% plot(x_predict2)
+plot(x_predict)
 hold off
 % legend('lossy','for','back','weighted')

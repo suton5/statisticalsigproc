@@ -73,3 +73,9 @@ hold off
 
 % Null hypothesis
 null_hypothesis = y_post(2001)
+
+figure (3)
+plot(G*theta_MAP)
+hold on
+plot(y)
+hold off

@@ -119,3 +119,10 @@ immse(xt, x_f)
 immse(xt, x_b)
 immse(xt, x_predict1)
 immse(xt, x_predict2)
+
+plot(xt)
+hold on
+plot(x_predict1)
+plot(x_predict2)
+hold off
+legend('Real','Weighted','Bayesian Interpolation')
