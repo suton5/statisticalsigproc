@@ -1,8 +1,8 @@
 clear all;
-rng(2,'twister');
+% rng(2,'twister');
 
-N=100;
-error_var=0.5G;
+N=1000;
+error_var=0.5;
 pole1=0.5+0.1j;
 pole2=0.5-0.1j;
 a1=pole1+pole2;
@@ -157,8 +157,9 @@ for i = 1:10
 end
 
 [best_value, best_hyperparam] = max(model_LL_list);
-probs = exp(model_LL_list);
-probs_norm = probs/sum(probs);
+% probs = exp(model_LL_list);
+% probs_norm = probs/sum(probs);
+probs_norm = exp(model_LL_list - logsumexp(model_LL_list));
 figure(1)
 plot(1:10,probs_norm)
 figure(2)
