@@ -3,27 +3,27 @@ rng(2,'twister');
 
 % Select a value for theta and data size
 theta=5;
-N=5;
+N=100;
 
 % Generate observations
-error_var = 1;
+error_var = 10;
 G = ones(N,1);
 y = G*theta + sqrt(error_var)*randn(N,1);
-figure(1)
-plot(y)
-hold on
-yline(theta, 'r', 'theta')
-hold off
-xlabel('n')
-ylabel('y_n')
-title(['Example data with theta=5, errorvar=1, N=', num2str(N)])
+% figure(1)
+% plot(y)
+% hold on
+% yline(theta, 'r', 'theta')
+% hold off
+% xlabel('n')
+% ylabel('y_n')
+% title(['Example data with theta=5, errorvar=1, N=', num2str(N)])
 
 % ML estimate for theta
 theta_ML = inv(transpose(G)*G)*transpose(G)*y
 
 % Prior distribution parameters
-theta_prior = 4
-prior_var = 0.5;
+theta_prior = 5.2
+prior_var = 0.2;
 
 % Likelihood parameters
 likelihood_var = error_var/(transpose(G)*G)
@@ -41,10 +41,10 @@ plot(x, y_post)
 hold on
 plot(x, y_likelihood)
 plot(x, y_prior)
-xline(theta_ML,'-.','ML')
-xline(theta_MAP,'-.','MAP')
+xline(theta_ML,'-.','ML','LabelHorizontalAlignment','left')
+xline(theta_MAP,'-.','MAP','LabelHorizontalAlignment','left')
 legend('Posterior','Likelihood','Prior')
 hold off
 xlabel('theta')
 ylabel('Probability Density')
-title(['The paramter distributions with theta=5, errorvar=1, N=', num2str(N)])
+title(sprintf('The parameter distributions with theta=5, for N=%s, errorvar=%s, priormean=%s, priorvar=%s', num2str(N), num2str(error_var), num2str(theta_prior), num2str(prior_var)))

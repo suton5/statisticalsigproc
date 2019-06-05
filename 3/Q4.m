@@ -47,7 +47,7 @@ theta_ML = inv(transpose(G)*G)*transpose(G)*y;
 error_var = sigma_n^2;
 
 % Prior distribution parameters
-theta_prior = 0;
+theta_prior = -0.5;
 prior_var = sigma_theta^2;
 
 % Likelihood parameters
@@ -66,10 +66,13 @@ plot(x, y_post)
 hold on
 plot(x, y_likelihood)
 plot(x, y_prior)
-xline(theta_ML,'-.','ML');
+xline(theta_ML,'-.','ML','LabelHorizontalAlignment','left');
 xline(theta_MAP,'-.','MAP');
 legend('Posterior','Likelihood','Prior')
+xlabel('theta')
+ylabel('Probability Density')
 hold off
+title(sprintf('The parameter distributions for priormean=%s, priorvar=%s', num2str(theta_prior), num2str(prior_var)))
 
 % Null hypothesis
 null_hypothesis = y_post(2001)
